@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seleksi Marga</title>
+<style>
+body {
+  background:#100b1c;
+  color:white;
+  font-family:Arial;
+  text-align:center;
+  padding:25px;
+}
+.box {
+  background:#261936;
+  padding:20px;
+  border-radius:15px;
+  max-width:400px;
+  margin:auto;
+}
+h1 {color:#c58cff;}
+input,button {
+  padding:12px;
+  margin:8px;
+  border-radius:8px;
+}
+button {
+  background:#c58cff;
+  border:0;
+  font-weight:bold;
+}
+label {display:block;margin:12px;}
+</style>
+</head>
+<body>
+<div class="box">
+<h1>SELEKSI MARGA</h1>
+<p>Selamat datang di seleksi anggota!</p>
+
+<form id="form">
+<input id="nama" placeholder="Nickname kamu" required>
+
+<p>1. Bisa bekerja sama?</p>
+<label><input type="radio" name="a" value="1" required> Bisa</label>
+<label><input type="radio" name="a" value="0"> Tidak</label>
+
+<p>2. Siap mengikuti aturan?</p>
+<label><input type="radio" name="b" value="1" required> Siap</label>
+<label><input type="radio" name="b" value="0"> Tidak</label>
+
+<p>3. Aktif dalam komunitas?</p>
+<label><input type="radio" name="c" value="1" required> Aktif</label>
+<label><input type="radio" name="c" value="0"> Tidak</label>
+
+<button type="submit">LIHAT HASIL</button>
+</form>
+<h2 id="hasil"></h2>
+</div>
+
+<script>
+document.getElementById("form").onsubmit=function(e){
+e.preventDefault();
+let nilai=Number(new FormData(this).get("a"))+
+Number(new FormData(this).get("b"))+
+Number(new FormData(this).get("c"));
+let nama=document.getElementById("nama").value;
+document.getElementById("hasil").innerText=
+nama+(nilai===3?" LOLOS!":" BELUM LOLOS");
+this.style.display="none";
+};
+</script>
+</body>
+</html>
