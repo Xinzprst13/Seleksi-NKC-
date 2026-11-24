@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#180d2b">
+<title>Seleksi Marga NKC</title>
+
+<style>
+*{box-sizing:border-box}
+:root{
+  --pink:#e8b7ff;
+  --cyan:#a8e8ff;
+  --text:#fbf6ff;
+  --muted:#cbbbdc;
+}
+body{
+  margin:0;
+  min-height:100vh;
+  padding:25px 14px;
+  font-family:Arial,sans-serif;
+  color:var(--text);
+  background:
+    linear-gradient(135deg,rgba(16,9,29,.91),rgba(24,13,43,.88)),
+    url("miku-nkc-banner.jpg") center/cover fixed no-repeat;
+}
+main{max-width:650px;margin:auto}
+.hero,.panel{
+  background:rgba(33,21,54,.88);
+  border:1px solid rgba(232,183,255,.25);
+  border-radius:22px;
+  padding:23px;
+  margin-bottom:18px;
+  box-shadow:0 10px 35px #0005;
+  backdrop-filter:blur(10px);
+}
+.hero{text-align:center}
+h1{
+  color:var(--pink);
+  margin:0 0 10px;
+  font-size:29px;
+}
+h2{color:var(--cyan);margin-top:0}
+p{color:var(--muted);line-height:1.6}
+label{
+  display:block;
+  margin:17px 0 8px;
+  font-weight:bold;
+}
+input,select{
+  width:100%;
+  padding:14px;
+  border-radius:12px;
+  border:1px solid #80649d;
+  background:#180d2b;
+  color:white;
+  font-size:15px;
+  outline:none;
+}
+input:focus,select:focus{border-color:var(--cyan)}
+button,.group-link{
+  display:block;
+  width:100%;
+  border:0;
+  border-radius:13px;
+  padding:15px;
+  margin-top:18px;
+  background:linear-gradient(100deg,#d99bff,#8edfff);
+  color:#211536;
+  font-size:16px;
+  font-weight:bold;
+  text-align:center;
+  text-decoration:none;
+  cursor:pointer;
+}
+button:disabled{
+  opacity:.45;
+  cursor:not-allowed;
+}
+.rules{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  margin-top:20px;
+  color:var(--muted);
+  line-height:1.5;
+}
+.rules input{
+  width:19px;
+  height:19px;
+  margin:2px 0 0;
+  flex-shrink:0;
+}
+.profile{
+  margin-top:10px;
+  padding:12px;
+  border-radius:10px;
+  background:#180d2b;
+  color:var(--cyan);
+  overflow-wrap:anywhere;
+}
+.profile a{color:var(--cyan)}
+.status{
+  color:#ffd5a6;
+  font-size:14px;
+  margin-top:12px;
+}
+#step2{display:none}
+.group-link{margin-top:12px}
+.footer{
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+  padding:10px;
+}
+</style>
+</head>
+
+<body>
+<main>
+
+<section class="hero">
+  <h1>Seleksi Marga NKC</h1>
+  <p>Welcome to Nakano Creator — isi data singkat untuk bergabung dengan keluarga NKC.</p>
+</section>
+
+<section class="panel" id="step1">
+  <h2>Formulir Pendaftaran</h2>
+
+  <label for="username">Username TikTok</label>
+  <input
+    id="username"
+    type="text"
+    placeholder="Contoh: @username"
+    autocomplete="off"
+  >
+
+  <div class="profile" id="profileResult">
+    Link profil TikTok akan muncul di sini.
+  </div>
+
+  <label for="generation">Pilih Generasi</label>
+  <select id="generation">
+    <option value="">-- Pilih Generasi --</option>
+    <option value="gen1">Gen 1</option>
+    <option value="gen2">Gen 2</option>
+  </select>
+
+  <label class="rules">
+    <input type="checkbox" id="rulesOk">
+    <span>Saya bersedia mengikuti peraturan dan ketentuan Marga NKC.</span>
+  </label>
+
+  <button id="nextBtn" disabled>Lanjut</button>
+  <div class="status" id="status"></div>
+</section>
+
+<section class="panel" id="step2">
+  <h2>Pendaftaran Berhasil!</h2>
+  <p id="welcomeText"></p>
+  <p>Silakan bergabung melalui grup WhatsApp sesuai generasi pilihanmu.</p>
+
+  <div id="gen1Group" style="display:none">
+    <a class="group-link"
+       href="https://chat.whatsapp.com/E2qwdPXxEYFKqzsc3vWTOB"
+       target="_blank" rel="noopener">
+       Masuk Grup WhatsApp Gen 1
+    </a>
+  </div>
+
+  <div id="gen2Group" style="display:none">
+    <a class="group-link"
+       href="https://chat.whatsapp.com/DoNiRGUInBhBjbHvNgU3uF?s=cl&p=a&iam=2"
+       target="_blank" rel="noopener">
+       Masuk Grup WhatsApp Gen 2
+    </a>
+  </div>
+</section>
+
+<div class="footer">© Nakano Creator — NKC</div>
+
+</main>
+
+<script>
+const username = document.getElementById("username");
+const generation = document.getElementById("generation");
+const rulesOk = document.getElementById("rulesOk");
+const nextBtn = document.getElementById("nextBtn");
+const profileResult = document.getElementById("profileResult");
+const status = document.getElementById("status");
+
+function cleanUsername(value){
+  return value.trim().replace(/^@+/, "").replace(/\s/g, "");
+}
+
+function updateForm(){
+  const name = cleanUsername(username.value);
+
+  if(name){
+    const url = "https://www.tiktok.com/@" + encodeURIComponent(name);
+    profileResult.innerHTML =
+      'Profil TikTok: <a href="' + url +
+      '" target="_blank" rel="noopener">@' +
+      name.replace(/[&<>"']/g, "") + '</a>';
+  }else{
+    profileResult.textContent =
+      "Link profil TikTok akan muncul di sini.";
+  }
+
+  nextBtn.disabled = !(name && generation.value && rulesOk.checked);
+}
+
+username.addEventListener("input", updateForm);
+generation.addEventListener("change", updateForm);
+rulesOk.addEventListener("change", updateForm);
+
+nextBtn.addEventListener("click", function(){
+  const name = cleanUsername(username.value);
+  const gen = generation.value;
+
+  if(!name || !gen || !rulesOk.checked){
+    status.textContent = "Lengkapi formulir terlebih dahulu.";
+    return;
+  }
+
+  document.getElementById("welcomeText").textContent =
+    "Selamat datang, @" + name + "! Kamu terdaftar di " +
+    (gen === "gen1" ? "Gen 1" : "Gen 2") + ".";
+
+  document.getElementById("gen1Group").style.display =
+    gen === "gen1" ? "block" : "none";
+
+  document.getElementById("gen2Group").style.display =
+    gen === "gen2" ? "block" : "none";
+
+  document.getElementById("step1").style.display = "none";
+  document.getElementById("step2").style.display = "block";
+
+  window.scrollTo({top:0,behavior:"smooth"});
+});
+</script>
+</body>
+</html>
