@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#180d2b">
+<title>Seleksi Marga NKC</title>
+<style>
+:root{--bg:#10091d;--panel:#211536;--line:#a76be8;--pink:#e8b7ff;--cyan:#a8e8ff;--text:#fbf6ff;--muted:#cbbbdc}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;color:var(--text);font-family:Inter,system-ui,Arial,sans-serif;background:radial-gradient(ellipse at 8% 0%,#7138a566,transparent 38%),radial-gradient(ellipse at 95% 75%,#244c7180,transparent 38%),linear-gradient(145deg,#10091d,#1b1030 55%,#0c1222)}
+main{width:min(980px,100%);margin:auto;padding:18px 14px 40px}
+.hero{position:relative;overflow:hidden;border:1px solid #b77aff99;border-radius:24px;box-shadow:0 18px 60px #0008;margin:0 0 16px;background:#160d29}
+.hero img{display:block;width:100%;height:auto;max-height:470px;object-fit:cover;object-position:center 37%}
+.hero:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(0deg,#170c2ae8 0%,transparent 38%)}
+.hero-caption{position:absolute;z-index:1;left:20px;right:20px;bottom:18px;text-align:center;text-shadow:0 2px 12px #000}
+.hero-caption .eyebrow{font-size:11px;letter-spacing:4px;color:var(--cyan);font-weight:900}
+.hero-caption h1{font-size:clamp(26px,6vw,46px);line-height:1;margin:7px 0;color:#fff}
+.hero-caption h1 span{color:var(--pink)}
+.hero-caption p{margin:0;color:#eee0ff;font-size:13px}
+.panel{background:linear-gradient(145deg,#281a3bef,#171329f5);border:1px solid #a66cddaa;border-radius:20px;padding:20px;margin:14px 0;box-shadow:0 16px 45px #0006}
+.panel h2{font-size:19px;margin:0 0 7px}.hint{color:var(--muted);font-size:13px;line-height:1.55;margin:0 0 14px}
+label{display:block;font-size:13px;font-weight:750;margin:14px 0 7px}
+input[type=text],select{width:100%;padding:14px;border:1px solid #8b62b5;border-radius:12px;background:#130f22;color:white;font:inherit;outline:none}
+input:focus,select:focus{border-color:var(--cyan);box-shadow:0 0 0 3px #a8e8ff20}
+.btn{display:flex;justify-content:center;align-items:center;width:100%;padding:14px 16px;border:0;border-radius:12px;background:linear-gradient(90deg,#d9a1ff,#a8e8ff);color:#191126;font-weight:900;font-size:14px;text-decoration:none;cursor:pointer;margin-top:15px}
+.btn.secondary{background:#ffffff0d;color:var(--text);border:1px solid #9871bc}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.tag{border:1px solid #b17bdc;background:#ffffff0c;color:#f1dfff;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:800}
+.check{display:flex;align-items:flex-start;gap:10px;color:var(--muted);font-size:13px;line-height:1.5;margin-top:14px}.check input{margin-top:3px;accent-color:#d5a5ff}
+.status{display:none;margin-top:16px;padding:14px;border-radius:12px;background:#a8e8ff12;border:1px solid #a8e8ff66;line-height:1.55;font-size:13px}.status strong{color:var(--cyan)}
+.groups{display:grid;grid-template-columns:1fr 1fr;gap:12px}.group{border:1px solid #a778d0;border-radius:15px;padding:16px;background:linear-gradient(120deg,#4b2b6a66,#ffffff08)}
+.group h3{margin:0 0 6px}.group p{font-size:12px;color:var(--muted);margin:0}.group a{display:block;text-align:center;text-decoration:none;background:#e8b7ff;color:#1c102b;font-weight:900;border-radius:10px;padding:11px;margin-top:13px;font-size:13px}
+.small{font-size:11px;color:#b9a8cb;text-align:center;line-height:1.6;margin:16px 4px 0}footer{text-align:center;color:#b9a8cb;font-size:11px;padding:22px 0 0}
+@media(max-width:560px){.groups{grid-template-columns:1fr}.panel{padding:17px}.hero img{min-height:280px;object-fit:cover}.hero-caption{bottom:12px}.hero-caption p{font-size:11px}}
+</style>
+</head>
+<body><main>
+<header class="hero">
+ <img src="miku-nkc-banner.jpg" alt="Ilustrasi anime bertema Miku dan NKC">
+ <div class="hero-caption">
+  <div class="eyebrow">NAKANO CREATOR • NKC</div>
+  <h1>SELEKSI <span>MARGA NKC</span></h1>
+  <p>Bersama Miku, kita wujudkan keluarga kreator yang lebih kuat! ♡</p>
+ </div>
+</header>
+
+<section class="panel">
+ <h2>🔎 Cek nama TikTok</h2>
+ <p class="hint">Masukkan username TikTok untuk mengecek daftar nama yang sudah dimasukkan ke sistem.</p>
+ <label for="checkname">Username TikTok</label>
+ <input id="checkname" type="text" maxlength="30" placeholder="Contoh: @namakamu">
+ <button class="btn secondary" id="checkBtn" type="button">CEK NAMA</button>
+ <div class="status" id="checkResult" role="status"></div>
+ <p class="small">Catatan: pengecekan memakai daftar anggota yang dikelola admin NKC, bukan pencarian langsung ke seluruh TikTok.</p>
+</section>
+
+<section class="panel">
+ <h2>📝 Formulir pendaftaran</h2>
+ <p class="hint">Isi username dengan benar. Aturan hashtag berlaku khusus untuk Gen 1.</p>
+ <form id="applyForm">
+  <label for="nickname">Nama / username TikTok</label>
+  <input id="nickname" type="text" maxlength="30" placeholder="@username_tiktok" required>
+  <label for="generation">Pilihan generasi grup</label>
+  <select id="generation"><option value="Gen 1">Gen 1</option><option value="Gen 2">Gen 2</option></select>
+  <div id="hashtagRules">
+   <label>Hashtag untuk Gen 1</label>
+   <div class="tags"><span class="tag">#margankc</span><span class="tag">#nakanocreator</span></div>
+   <label class="check"><input type="checkbox" id="tagsOk" required><span>Saya sudah memasang hashtag <b>#margankc</b> dan <b>#nakanocreator</b>.</span></label>
+  </div>
+  <p class="hint" id="gen2Note" hidden>Untuk Gen 2, hashtag tidak wajib. Kamu bisa langsung lanjut.</p>
+  <label class="check"><input type="checkbox" id="rulesOk" required><span>Saya bersedia mengikuti peraturan dan menjaga nama baik NKC.</span></label>
+  <button class="btn" type="submit">✦ KIRIM PENDAFTARAN ✦</button>
+ </form>
+ <div class="status" id="applyResult" role="status"></div>
+</section>
+
+<section class="panel">
+ <h2>💜 Grup WhatsApp NKC</h2>
+ <p class="hint">Pilih grup sesuai generasi. Pastikan mengikuti arahan admin NKC.</p>
+ <div class="groups">
+  <div class="group"><h3>👑 GEN 1</h3><p>Grup anggota NKC generasi pertama.</p><a href="https://chat.whatsapp.com/E2qwdPXxEYFKqzsc3vWTOB" target="_blank" rel="noopener">BUKA GRUP GEN 1</a></div>
+  <div class="group"><h3>👑 GEN 2</h3><p>Grup anggota NKC generasi kedua.</p><a href="https://chat.whatsapp.com/DoNiRGUInBhBjbHvNgU3uF?s=cl&p=a&iam=2" target="_blank" rel="noopener">BUKA GRUP GEN 2</a></div>
+ </div>
+ <p class="small">Pendaftaran pada versi ini hanya ditampilkan di perangkat pengisi dan belum dikirim ke database admin.</p>
+</section>
+<footer>© 2026 SELEKSI NKC • NAKANO CREATOR<br><i>“Miku akan selalu mendukung kalian ♡”</i></footer>
+</main>
+<script>
+const knownNames = []; // Admin dapat mengisi daftar username terdaftar di sini.
+const norm = s => s.trim().replace(/^@/,'').toLowerCase();
+const generation = document.getElementById('generation');
+const tagsOk = document.getElementById('tagsOk');
+const hashtagRules = document.getElementById('hashtagRules');
+const gen2Note = document.getElementById('gen2Note');
+function updateHashtagRule(){
+ const isGen1 = generation.value === 'Gen 1';
+ hashtagRules.hidden = !isGen1;
+ gen2Note.hidden = isGen1;
+ tagsOk.required = isGen1;
+ if(!isGen1) tagsOk.checked = false;
+}
+generation.addEventListener('change', updateHashtagRule); updateHashtagRule();
+document.getElementById('checkBtn').addEventListener('click',()=>{
+ const raw=document.getElementById('checkname').value, out=document.getElementById('checkResult');
+ if(!norm(raw)){out.style.display='block';out.textContent='Masukkan username TikTok terlebih dahulu.';return;}
+ const exists=knownNames.includes(norm(raw));
+ out.style.display='block';
+ out.innerHTML=exists?'<strong>Nama sudah tercatat.</strong> Silakan hubungi admin NKC jika ini keliru.':'<strong>Belum ditemukan di daftar demo.</strong> Tetap tunggu konfirmasi admin NKC.';
+});
+document.getElementById('applyForm').addEventListener('submit',e=>{
+ e.preventDefault();
+ const name=document.getElementById('nickname').value.trim(), gen=generation.value, out=document.getElementById('applyResult');
+ out.style.display='block';
+ out.innerHTML='<strong>Data formulir ditampilkan (demo).</strong><br>Username TikTok: '+escapeHtml(name)+'<br>Pilihan grup: '+gen+'<br><br>Status: <strong>MENUNGGU KONFIRMASI ADMIN</strong>. Silakan hubungi admin NKC untuk mengirim data ini.';
+ out.scrollIntoView({behavior:'smooth',block:'nearest'});
+});
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+</script>
+</body></html>
