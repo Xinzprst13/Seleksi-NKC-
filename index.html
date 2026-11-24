@@ -1,0 +1,197 @@
+<script>
+const $ = id => document.getElementById(id);
+
+const nickname = $("nickname");
+const generation = $("generation");
+const proofLink = $("proofLink");
+const tagsOk = $("tagsOk");
+const rulesOk = $("rulesOk");
+
+const hashtagRules = $("hashtagRules");
+const gen2Note = $("gen2Note");
+const profileResult = $("profileResult");
+const proofStatus = $("proofStatus");
+const stepResult = $("stepResult");
+const step2 = $("step2");
+
+// Bersihkan semua karakter aneh dari copy-paste
+function normalizeLink(raw){
+  return raw
+    .replace(/[\u200B-\u200D\uFEFF]/g, "") // zero-width space
+    .replace(/\s+/g, "")                    // semua spasi/enter
+    .trim();
+}
+
+function cleanUsername(v){
+  return v.trim().replace(/^@+/, "").replace(/\s+/g, "");
+}
+
+// Validator TikTok yang toleran
+function parseTikTokLink(raw){
+  let value = normalizeLink(raw);
+  if(!value) return {ok:false, reason:"kosong"};
+
+  // Auto tambah https:// kalau belum ada
+  if(!/^https?:\/\//i.test(value)){
+    value = "https://" + value;
+  }
+
+  let url;
+  try{
+    url = new URL(value);
+  }catch{
+    return {ok:false, reason:"format" };
+  }
+
+  if(url.protocol !== "https:" && url.protocol !== "http:"){
+    return {ok:false, reason:"protokol"};
+  }
+
+  const host = url.hostname.toLowerCase();
+  const allowed = [
+    "tiktok.com",
+    "www.tiktok.com",
+    "m.tiktok.com",
+    "vm.tiktok.com",
+    "vt.tiktok.com",
+    "vt.tiktokv.com"
+  ];
+  const isTikTok = allowed.includes(host) || host.endsWith(".tiktok.com");
+  if(!isTikTok){
+    return {ok:false, reason:"domain"};
+  }
+
+  return {ok:true, url: value};
+}
+
+function isTikTokLink(raw){
+  return parseTikTokLink(raw).ok;
+}
+
+function lockStep2(){
+  step2.hidden = true;
+  $("gen1Group").hidden = true;
+  $("gen2Group").hidden = true;
+}
+
+function showStatus(el, msg, type = ""){
+  el.classList.remove("is-error", "is-success");
+  if(type) el.classList.add("is-" + type);
+  el.style.display = "block";
+  el.textContent = msg;
+  el.scrollIntoView({behavior:"smooth", block:"center"});
+}
+
+function hideStatus(el){
+  el.style.display = "none";
+  el.classList.remove("is-error", "is-success");
+  el.textContent = "";
+}
+
+nickname.addEventListener("input", () => {
+  lockStep2();
+  hideStatus(stepResult);
+  const username = cleanUsername(nickname.value);
+
+  if(!username){
+    hideStatus(profileResult);
+    return;
+  }
+
+  const url = "https://www.tiktok.com/@" + encodeURIComponent(username);
+  profileResult.style.display = "block";
+  profileResult.textContent = "Tautan profil: ";
+  const link = document.createElement("a");
+  link.href = url;
+  link.target = "_blank";
+  link.rel = "noopener";
+  link.textContent = url;
+  profileResult.appendChild(link);
+});
+
+generation.addEventListener("change", () => {
+  hashtagRules.hidden = generation.value !== "Gen 1";
+  gen2Note.hidden = generation.value !== "Gen 2";
+  proofLink.value = "";
+  tagsOk.checked = false;
+  hideStatus(proofStatus);
+  hideStatus(stepResult);
+  lockStep2();
+});
+
+proofLink.addEventListener("input", () => {
+  lockStep2();
+  hideStatus(stepResult);
+  const raw = proofLink.value;
+  if(!raw.trim()){
+    hideStatus(proofStatus);
+    return;
+  }
+
+  const result = parseTikTokLink(raw);
+  if(!result.ok){
+    const map = {
+      kosong: "Tautan masih kosong.",
+      format: "Format tautan tidak valid. Contoh: https://vm.tiktok.com/xxxx",
+      protokol: "Tautan harus diawali https:// atau http://.",
+      domain: "Bukan tautan TikTok. Pastikan dari menu 'Salin tautan' TikTok."
+    };
+    showStatus(proofStatus, map[result.reason] || "Tautan tidak valid.", "error");
+  }else{
+    showStatus(proofStatus, "✅ Link TikTok valid.", "success");
+  }
+});
+
+tagsOk.addEventListener("change", lockStep2);
+rulesOk.addEventListener("change", lockStep2);
+
+$("nextBtn").addEventListener("click", () => {
+  lockStep2();
+  hideStatus(stepResult);
+
+  const name = cleanUsername(nickname.value);
+  const gen = generation.value;
+
+  if(!name){
+    showStatus(stepResult, "Isi username TikTok terlebih dahulu.", "error");
+    nickname.focus();
+    return;
+  }
+
+  if(!/^[a-zA-Z0-9._]{2,24}$/.test(name)){
+    showStatus(stepResult, "Format username tidak valid (2–24 karakter: huruf, angka, titik, underscore).", "error");
+    nickname.focus();
+    return;
+  }
+
+  if(!gen){
+    showStatus(stepResult, "Pilih Gen 1 atau Gen 2 terlebih dahulu.", "error");
+    generation.focus();
+    return;
+  }
+
+  if(gen === "Gen 1"){
+    const parsed = parseTikTokLink(proofLink.value);
+    if(!parsed.ok){
+      showStatus(stepResult, "Masukkan tautan video TikTok yang valid (dari menu 'Salin tautan').", "error");
+      proofLink.focus();
+      return;
+    }
+    if(!tagsOk.checked){
+      showStatus(stepResult, "Konfirmasi bahwa kedua hashtag sudah ada di video.", "error");
+      return;
+    }
+  }
+
+  if(!rulesOk.checked){
+    showStatus(stepResult, "Kamu harus menyetujui peraturan NKC.", "error");
+    return;
+  }
+
+  $("gen1Group").hidden = gen !== "Gen 1";
+  $("gen2Group").hidden = gen !== "Gen 2";
+  step2.hidden = false;
+  showStatus(stepResult, "Pendaftaran berhasil! Silakan lanjut ke grup NKC.", "success");
+  step2.scrollIntoView({behavior:"smooth"});
+});
+     </script>
