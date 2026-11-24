@@ -1,0 +1,86 @@
+
+const VERIFY_API = "ISI_URL_BACKEND_KAMU";
+
+async function verifyTikTokHashtags(videoUrl, username) {
+  try {
+    const response = await fetch(VERIFY_API, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username,
+        videoUrl,
+        requiredHashtags: [
+          "#margankc",
+          "#nakanocreator"
+        ]
+      })
+    });
+
+    if (!response.ok) return false;
+
+    const result = await response.json();
+
+    return result.valid === true &&
+      result.hashtags?.includes("#margankc") &&
+      result.hashtags?.includes("#nakanocreator");
+  } catch (error) {
+    return false;
+  }
+}
+
+document.getElementById("nextBtn").addEventListener("click", async () => {
+  const name = cleanUsername(nickname.value);
+  const gen = generation.value;
+  const rules = document.getElementById("rulesOk").checked;
+  const out = stepResult;
+  const button = document.getElementById("nextBtn");
+
+  out.style.display = "block";
+  document.getElementById("step2").hidden = true;
+
+  if (!name) {
+    out.textContent = "Isi username TikTok terlebih dahulu.";
+    return;
+  }
+
+  if (!gen) {
+    out.textContent = "Pilih generasi terlebih dahulu.";
+    return;
+  }
+
+  if (!rules) {
+    out.textContent = "Kamu harus menyetujui peraturan NKC.";
+    return;
+  }
+
+  if (gen === "Gen 1") {
+    if (!isTikTokLink(proofLink.value.trim())) {
+      out.textContent = "Tautan bukti TikTok tidak valid.";
+      return;
+    }
+
+    button.disabled = true;
+    button.textContent = "MEMERIKSA HASHTAG...";
+
+    const valid = await verifyTikTokHashtags(
+      proofLink.value.trim(),
+      name
+    );
+
+    button.disabled = false;
+    button.textContent = "LANJUT KE STEP 2 ✦";
+
+    if (!valid) {
+      out.textContent =
+        "INVALID ❌ Hashtag belum lengkap atau bukti tidak dapat diverifikasi. Step 2 tetap terkunci.";
+      return;
+    }
+  }
+
+  document.getElementById("gen1Group").hidden = gen !== "Gen 1";
+  document.getElementById("gen2Group").hidden = gen !== "Gen 2";
+  document.getElementById("step2").hidden = false;
+  document.getElementById("step2").scrollIntoView({
+    behavior: "smooth"
+  });
+});
