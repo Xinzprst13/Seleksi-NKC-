@@ -1,0 +1,831 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Seleksi Marga NKC - Neon</title>
+
+<style>
+/* =========================================
+   TEMA NEON PURPLE (100% CSS MURNI)
+   ========================================= */
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #ffffff;
+  
+  /* Background dasar gradasi neon */
+  background: linear-gradient(135deg, #090514 0%, #1c0b33 50%, #0d0618 100%);
+  
+  /* Efek pola grid tipis di background */
+  background-image: 
+    linear-gradient(rgba(168, 232, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(168, 232, 255, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  
+  display: flex;
+  justify-content: center;
+  padding: 20px 15px;
+}
+
+.container {
+  width: 100%;
+  max-width: 600px;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 30px 20px;
+  background: rgba(28, 11, 51, 0.8);
+  border: 2px solid #e8b7ff;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(232, 183, 255, 0.2);
+}
+
+.header h1 {
+  margin: 0 0 10px;
+  font-size: 28px;
+  letter-spacing: 2px;
+  color: #ffffff;
+  text-shadow: 0 0 10px #e8b7ff, 0 0 20px #e8b7ff;
+}
+
+.header p {
+  margin: 0;
+  color: #a8e8ff;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Card Form */
+.card {
+  background: rgba(20, 8, 38, 0.9);
+  border: 1px solid #5d2b8a;
+  border-radius: 16px;
+  padding: 25px;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+}
+
+.card h2 {
+  margin-top: 0;
+  font-size: 20px;
+  border-bottom: 2px solid #5d2b8a;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #d1c4e9;
+  font-weight: 600;
+}
+
+input[type="text"], input[type="url"], select {
+  width: 100%;
+  padding: 12px 15px;
+  background: #0f061c;
+  border: 1px solid #5d2b8a;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 15px;
+  outline: none;
+  transition: all 0.3s;
+}
+
+input:focus, select:focus {
+  border-color: #a8e8ff;
+  box-shadow: 0 0 10px rgba(168, 232, 255, 0.3);
+}
+
+/* Tag Hashtag */
+.tags {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0 15px;
+}
+
+.tag {
+  background: rgba(232, 183, 255, 0.1);
+  border: 1px solid #e8b7ff;
+  color: #e8b7ff;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+/* Checkbox */
+.check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 15px;
+  font-size: 13px;
+  color: #b39ddb;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.check input {
+  margin-top: 3px;
+  accent-color: #e8b7ff;
+}
+
+/* Tombol */
+button {
+  width: 100%;
+  padding: 15px;
+  margin-top: 25px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #b388ff, #82b1ff);
+  color: #110222;
+  font-size: 16px;
+  font-weight: 900;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(179, 136, 255, 0.4);
+}
+
+/* Pesan Status */
+.status {
+  display: none;
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  text-align: center;
+  font-weight: bold;
+}
+.status.error {
+  background: rgba(255, 100, 100, 0.1);
+  border: 1px solid #ff6464;
+  color: #ff6464;
+}
+.status.success {
+  background: rgba(100, 255, 150, 0.1);
+  border: 1px solid #64ff96;
+  color: #64ff96;
+}
+
+/* Kotak Link Grup */
+.group-box {
+  text-align: center;
+  background: rgba(40, 15, 70, 0.6);
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px dashed #b388ff;
+  margin-top: 15px;
+}
+
+.group-box a {
+  display: inline-block;
+  background: #e8b7ff;
+  color: #110222;
+  text-decoration: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-weight: bold;
+  margin-top: 15px;
+  transition: 0.2s;
+}
+
+.group-box a:hover {
+  background: #a8e8ff;
+}
+
+.hide { display: none !important; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <h1>SELEKSI NKC</h1>
+    <p>Nakano Creator Family</p>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="card" id="step1">
+    <h2>Formulir Pendaftaran</h2>
+    
+    <label>Username TikTok</label>
+    <input type="text" id="nickname" placeholder="@username" autocomplete="off">
+    <div class="status" id="profileResult"></div>
+
+    <label style="margin-top: 15px;">Pilih Generasi</label>
+    <select id="generation">
+      <option value="">-- Pilih Generasi --</option>
+      <option value="Gen 1">Gen 1</option>
+      <option value="Gen 2">Gen 2</option>
+    </select>
+
+    <!-- Khusus Gen 1 -->
+    <div id="hashtagRules" class="hide">
+      <label style="margin-top: 15px;">Hashtag Wajib</label>
+      <div class="tags">
+        <span class="tag">#nakanocreator</span>
+        <span class="tag">#margankc</span>
+      </div>
+      
+      <label>Tautan Video TikTok</label>
+      <input type="url" id="proofLink" placeholder="Tempel link TikTok di sini">
+      <div class="status" id="proofStatus"></div>
+
+      <label class="check">
+        <input type="checkbox" id="tagsOk">
+        <span>Saya memastikan video sudah memakai hashtag <b>#nakanocreator</b> & <b>#margankc</b>.</span>
+      </label>
+    </div>
+
+    <!-- Khusus Gen 2 -->
+    <div id="gen2Note" class="hide" style="margin-top: 15px; font-size: 13px; color: #a8e8ff;">
+      *Gen 2 tidak memerlukan hashtag atau link bukti.
+    </div>
+
+    <label class="check">
+      <input type="checkbox" id="rulesOk">
+      <span>Saya bersedia mengikuti peraturan NKC.</span>
+    </label>
+
+    <button id="nextBtn">LANJUT ➔</button>
+    <div class="status" id="stepResult"></div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="card hide" id="step2">
+    <h2>Pendaftaran Berhasil!</h2>
+    <p style="color: #b39ddb; font-size: 14px;">Silakan gabung ke grup WhatsApp sesuai generasimu.</p>
+
+    <div id="gen1Group" class="group-box hide">
+      <h3>👑 Grup Gen 1</h3>
+      <a href="https://chat.whatsapp.com/E2qwdPXxEYFKqzsc3vWTOB" target="_blank">BUKA GRUP GEN 1</a>
+    </div>
+
+    <div id="gen2Group" class="group-box hide">
+      <h3>👑 Grup Gen 2</h3>
+      <a href="https://chat.whatsapp.com/DoNiRGUInBhBjbHvNgU3uF?s=cl&p=a&iam=2" target="_blank">BUKA GRUP GEN 2</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// --- LOGIKA JAVASCRIPT ---
+const $ = id => document.getElementById(id);
+
+const nickname = $("nickname");
+const generation = $("generation");
+const proofLink = $("proofLink");
+const tagsOk = $("tagsOk");
+const rulesOk = $("rulesOk");
+
+const hashtagRules = $("hashtagRules");
+const gen2Note = $("gen2Note");
+const profileResult = $("profileResult");
+const proofStatus = $("proofStatus");
+const stepResult = $("stepResult");
+const step1 = $("step1");
+const step2 = $("step2");
+
+// Fungsi Validasi Link TikTok
+function validTikTokLink(url) {
+  if (!url) return false;
+  let val = url.trim().replace(/\s+/g, "");
+  if (!/^https?:\/\//i.test(val)) val = "https://" + val;
+  try {
+    let u = new URL(val);
+    let host = u.hostname.toLowerCase();
+    return host.includes("tiktok.com");
+  } catch {
+    return false;
+  }
+}
+
+// Event Input Username (Preview)
+nickname.addEventListener("input", () => {
+  step2.classList.add("hide"); // Sembunyikan step 2 jika diedit
+  let user = nickname.value.trim().replace(/^@+/, "").replace(/\s/g, "");
+  if (!user) {
+    profileResult.style.display = "none";
+    return;
+  }
+  profileResult.style.display = "block";
+  profileResult.className = "status success";
+  profileResult.innerHTML = `Profil: <a href="https://www.tiktok.com/@${user}" target="_blank" style="color:white;">@${user}</a>`;
+});
+
+// Event Ganti Generasi
+generation.addEventListener("change", () => {
+  step2.classList.add("hide");
+  if (generation.value === "Gen 1") {
+    hashtagRules.classList.remove("hide");
+    gen2Note.classList.add("hide");
+  } else if (generation.value === "Gen 2") {
+    hashtagRules.classList.add("hide");
+    gen2Note.classList.remove("hide");
+  } else {
+    hashtagRules.classList.add("hide");
+    gen2Note.classList.add("hide");
+  }
+});
+
+// Event Input Link (Validasi Realtime)
+proofLink.addEventListener("input", () => {
+  step2.classList.add("hide");
+  let val = proofLink.value.trim();
+  if (!val) {
+    proofStatus.style.display = "none";
+    return;
+  }
+  if (validTikTokLink(val)) {
+    proofStatus.style.display = "block";
+    proofStatus.className = "status success";
+    proofStatus.textContent = "✅ Link TikTok Valid";
+  } else {
+    proofStatus.style.display = "block";
+    proofStatus.className = "status error";
+    proofStatus.textContent = "❌ Bukan Link TikTok yang valid";
+  }
+});
+
+// Tombol Lanjut
+$("nextBtn").addEventListener("click", () => {
+  step2.classList.add("hide");
+  stepResult.style.display = "none";
+
+  let user = nickname.value.trim().replace(/^@+/, "");
+  let gen = generation.value;
+
+  // Validasi
+  if (!user) {
+    stepResult.style.display = "block"; stepResult.className = "status error"; stepResult.textContent = "Isi Username TikTok!";
+    return;
+  }
+  if (!gen) {
+    stepResult.style.display = "block"; stepResult.className = "status error"; stepResult.textContent = "Pilih Generasi!";
+    return;
+  }
+  if (gen === "Gen 1") {
+    if (!validTikTokLink(proofLink.value)) {
+      stepResult.style.display = "block"; stepResult.className = "status error"; stepResult.textContent = "Masukkan Link TikTok yang valid!";
+      return;
+    }
+    if (!tagsOk.checked) {
+      stepResult.style.display = "block"; stepResult.className = "status error"; stepResult.textContent = "Centang konfirmasi hashtag!";
+      return;
+    }
+  }
+  if (!rulesOk.checked) {
+    stepResult.style.display = "block"; stepResult.className = "status error"; stepResult.textContent = "Kamu harus menyetujui peraturan!";
+    return;
+  }
+
+  // Jika Sukses
+  step1.classList.add("hide");
+  step2.classList.remove("hide");
+  
+  if (gen === "Gen 1") {
+    $("gen1Group").classList.remove("hide");
+    $("gen2Group").classList.add("hide");
+  } else {
+    $("gen1Group").classList.add("hide");
+    $("gen2Group").classList.remove("hide");
+  }
+  
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+</script>
+
+</body>
+  </html><!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Seleksi Marga NKC - Neon</title>
+
+<style>
+/* =========================================
+   TEMA NEON PURPLE (100% CSS MURNI)
+   ========================================= */
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #ffffff;
+  
+  /* Background dasar gradasi neon */
+  background: linear-gradient(135deg, #090514 0%, #1c0b33 50%, #0d0618 100%);
+  
+  /* Efek pola grid tipis di background */
+  background-image: 
+    linear-gradient(rgba(168, 232, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(168, 232, 255, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  
+  display: flex;
+  justify-content: center;
+  padding: 20px 15px;
+}
+
+.container {
+  width: 100%;
+  max-width: 600px;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 30px 20px;
+  background: rgba(28, 11, 51, 0.8);
+  border: 2px solid #e8b7ff;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(232, 183, 255, 0.2);
+}
+
+.header h1 {
+  margin: 0 0 10px;
+  font-size: 28px;
+  letter-spacing: 2px;
+  color: #ffffff;
+  text-shadow: 0 0 10px #e8b7ff, 0 0 20px #e8b7ff;
+}
+
+.header p {
+  margin: 0;
+  color: #a8e8ff;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Card Form */
+.card {
+  background: rgba(20, 8, 38, 0.9);
+  border: 1px solid #5d2b8a;
+  border-radius: 16px;
+  padding: 25px;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+}
+
+.card h2 {
+  margin-top: 0;
+  font-size: 20px;
+  border-bottom: 2px solid #5d2b8a;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #d1c4e9;
+  font-weight: 600;
+}
+
+input[type="text"], input[type="url"], select {
+  width: 100%;
+  padding: 12px 15px;
+  background: #0f061c;
+  border: 1px solid #5d2b8a;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 15px;
+  outline: none;
+  transition: all 0.3s;
+}
+
+input:focus, select:focus {
+  border-color: #a8e8ff;
+  box-shadow: 0 0 10px rgba(168, 232, 255, 0.3);
+}
+
+/* Tag Hashtag */
+.tags {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0 15px;
+}
+
+.tag {
+  background: rgba(232, 183, 255, 0.1);
+  border: 1px solid #e8b7ff;
+  color: #e8b7ff;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+/* Checkbox */
+.check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 15px;
+  font-size: 13px;
+  color: #b39ddb;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.check input {
+  margin-top: 3px;
+  accent-color: #e8b7ff;
+}
+
+/* Tombol */
+button {
+  width: 100%;
+  padding: 15px;
+  margin-top: 25px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #b388ff, #82b1ff);
+  color: #110222;
+  font-size: 16px;
+  font-weight: 900;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(179, 136, 255, 0.4);
+}
+
+/* Pesan Status */
+.status {
+  display: none;
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  text-align: center;
+  font-weight: bold;
+}
+.status.error {
+  background: rgba(255, 100, 100, 0.1);
+  border: 1px solid #ff6464;
+  color: #ff6464;
+}
+.status.success {
+  background: rgba(100, 255, 150, 0.1);
+  border: 1px solid #64ff96;
+  color: #64ff96;
+}
+
+/* Kotak Link Grup */
+.group-box {
+  text-align: center;
+  background: rgba(40, 15, 70, 0.6);
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px dashed #b388ff;
+  margin-top: 15px;
+}
+
+.group-box a {
+  display: inline-block;
+  background: #e8b7ff;
+  color: #110222;
+  text-decoration: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-weight: bold;
+  margin-top: 15px;
+  transition: 0.2s;
+}
+
+.group-box a:hover {
+  background: #a8e8ff;
+}
+
+.hide { display: none !important; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <h1>SELEKSI NKC</h1>
+    <p>Nakano Creator Family</p>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="card" id="step1">
+    <h2>Formulir Pendaftaran</h2>
+    
+    <label>Username TikTok</label>
+    <input type="text" id="nickname" placeholder="@username" autocomplete="off">
+    <div class="status" id="profileResult"></div>
+
+    <label style="margin-top: 15px;">Pilih Generasi</label>
+    <select id="generation">
+      <option value="">-- Pilih Generasi --</option>
+      <option value="Gen 1">Gen 1</option>
+      <option value="Gen 2">Gen 2</option>
+    </select>
+
+    <!-- Khusus Gen 1 -->
+    <div id="hashtagRules" class="hide">
+      <label style="margin-top: 15px;">Hashtag Wajib</label>
+      <div class="tags">
+        <span class="tag">#nakanocreator</span>
+        <span class="tag">#margankc</span>
+      </div>
+      
+      <label>Tautan Video TikTok</label>
+      <input type="url" id="proofLink" placeholder="Tempel link TikTok di sini">
+      <div class="status" id="proofStatus"></div>
+
+      <label class="check">
+        <input type="checkbox" id="tagsOk">
+        <span>Saya memastikan video sudah memakai hashtag <b>#nakanocreator</b> & <b>#margankc</b>.</span>
+      </label>
+    </div>
+
+    <!-- Khusus Gen 2 -->
+    <div id="gen2Note" class="hide" style="margin-top: 15px; font-size: 13px; color: #a8e8ff;">
+      *Gen 2 tidak memerlukan hashtag atau link bukti.
+    </div>
+
+    <label class="check">
+      <input type="checkbox" id="rulesOk">
+      <span>Saya bersedia mengikuti peraturan NKC.</span>
+    </label>
+
+    <button id="nextBtn">LANJUT ➔</button>
+    <div class="status" id="stepResult"></div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="card hide" id="step2">
+    <h2>Pendaftaran Berhasil!</h2>
+    <p style="color: #b39ddb; font-size: 14px;">Silakan gabung ke grup WhatsApp sesuai generasimu.</p>
+
+    <div id="gen1Group" class="group-box hide">
+      <h3>👑 Grup Gen 1</h3>
+      <a href="https://chat.whatsapp.com/E2qwdPXxEYFKqzsc3vWTOB" target="_blank">BUKA GRUP GEN 1</a>
+    </div>
+
+    <div id="gen2Group" class="group-box hide">
+      <h3>👑 Grup Gen 2</h3>
+      <a href="https://chat.whatsapp.com/DoNiRGUInBhBjbHvNgU3uF?s=cl&p=a&iam=2" target="_blank">BUKA GRUP GEN 2</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// --- LOGIKA JAVASCRIPT ---
+const $ = id => document.getElementById(id);
+
+const nickname = $("nickname");
+const generation = $("generation");
+const proofLink = $("proofLink");
+const tagsOk = $("tagsOk");
+const rulesOk = $("rulesOk");
+
+const hashtagRules = $("hashtagRules");
+const gen2Note = $("gen2Note");
+const profileResult = $("profileResult");
+const proofStatus = $("proofStatus");
+const stepResult = $("stepResult");
+const step1 = $("step1");
+const step2 = $("step2");
+
+// Fungsi Validasi Link TikTok
+function validTikTokLink(url) {
+  if (!url) return false;
+  let val = url.trim().replace(/\s+/g, "");
+  if (!/^https?:\/\//i.test(val)) val = "https://" + val;
+  try {
+    let u = new URL(val);
+    let host = u.hostname.toLowerCase();
+    return host.includes("tiktok.com");
+  } catch {
+    return false;
+  }
+}
+
+// Event Input Username (Preview)
+nickname.addEventListener("input", () => {
+  step2.classList.add("hide"); // Sembunyikan step 2 jika diedit
+  let user = nickname.value.trim().replace(/^@+/, "").replace(/\s/g, "");
+  if (!user) {
+    profileResult.style.display = "none";
+    return;
+  }
+  profileResult.style.display = "block";
+  profileResult.className = "status success";
+  profileResult.innerHTML = `Profil: <a href="https://www.tiktok.com/@${user}" target="_blank" style="color:white;">@${user}</a>`;
+});
+
+// Event Ganti Generasi
+generation.addEventListener("change", () => {
+  step2.classList.add("hide");
+  if (generation.value === "Gen 1") {
+    hashtagRules.classList.remove("hide");
+    gen2Note.classList.add("hide");
+  } else if (generation.value === "Gen 2") {
+    hashtagRules.classList.add("hide");
+    gen2Note.classList.remove("hide");
+  } else {
+    hashtagRules.classList.add("hide");
+    gen2Note.classList.add("hide");
+  }
+});
+
+// Event Input Link (Validasi Realtime)
+proofLink.addEventListener("input", () => {
+  step2.classList.add("hide");
+  let val = proofLink.value.trim();
+  if (!val) {
+    proofStatus.style.display = "none";
+    return;
+  }
+  if (validTikTokLink(val)) {
+    proofStatus.style.display = "block";
+    proofStatus.className = "status success";
+    proofStatus.textContent = "✅ Link TikTok Valid";
+  } else {
+    proofStatus.style.display = "block";
+    proofStatus.className = "status error";
+    proofStatus.textContent = "❌ Bukan Link TikTok yang valid";
+  }
+});
+
+// Tombol Lanjut
+$("nextBtn").addEventListener("click", () => {
+  step2.classList.add("hide");
+  stepResult.style.display = "none";
+
+  let user = nickname.value.trim().replace(/^@+/, "");
+  let gen = generation.value;
+
+  // Validasi
+  if (!user) {
+    stepResult.style.display = "block"; stepResult.className = "status error"; stepResult.textContent = "Isi Username TikTok!";
+    return;
+  }
+  if (!gen) {
+    stepResult.style.display = "block"; stepResult.className = "status error"; stepResult.textContent = "Pilih Generasi!";
+    return;
+  }
+  if (gen === "Gen 1") {
+    if (!validTikTokLink(proofLink.value)) {
+      stepResult.style.display = "block"; stepResult.className = "status error"; stepResult.textContent = "Masukkan Link TikTok yang valid!";
+      return;
+    }
+    if (!tagsOk.checked) {
+      stepResult.style.display = "block"; stepResult.className = "status error"; stepResult.textContent = "Centang konfirmasi hashtag!";
+      return;
+    }
+  }
+  if (!rulesOk.checked) {
+    stepResult.style.display = "block"; stepResult.className = "status error"; stepResult.textContent = "Kamu harus menyetujui peraturan!";
+    return;
+  }
+
+  // Jika Sukses
+  step1.classList.add("hide");
+  step2.classList.remove("hide");
+  
+  if (gen === "Gen 1") {
+    $("gen1Group").classList.remove("hide");
+    $("gen2Group").classList.add("hide");
+  } else {
+    $("gen1Group").classList.add("hide");
+    $("gen2Group").classList.remove("hide");
+  }
+  
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+</script>
+
+</body>
+</html>
