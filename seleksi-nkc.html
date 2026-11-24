@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#180d2b">
+<title>SELEKSI MARGA NKC</title>
+
+<style>
+:root{
+  --pink:#e8b7ff;
+  --cyan:#a8e8ff;
+  --text:#fbf6ff;
+  --muted:#cbbbdc;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  color:var(--text);
+  font-family:Inter,system-ui,Arial,sans-serif;
+  background:linear-gradient(rgba(16,9,29,.88),rgba(16,9,29,.93)),#10091d;
+  background-image:linear-gradient(rgba(16,9,29,.88),rgba(16,9,29,.93)),url("https://i.pinimg.com/originals/8a/3b/c3/8a3bc3f8be9f32a8f0a5184c1b3e8912.jpg");
+  background-position:center;
+  background-size:cover;
+  background-attachment:fixed;
+  background-repeat:no-repeat;
+}
+main{width:min(850px,100%);margin:auto;padding:20px 14px 40px}
+
+/* ============ HERO ============ */
+.hero{
+  text-align:center;
+  padding:30px 16px;
+  border:1px solid #b77aff99;
+  border-radius:22px;
+  background:#211536d9;
+  box-shadow:0 15px 45px #0008;
+  margin-bottom:18px;
+}
+.eyebrow{font-size:11px;letter-spacing:4px;color:var(--cyan);font-weight:900}
+.hero h1{font-size:clamp(30px,7vw,48px);margin:12px 0}
+.hero h1 span{color:var(--pink)}
+.hero p{color:var(--muted);font-size:13px}
+
+/* ============ PANEL ============ */
+.panel{
+  background:linear-gradient(145deg,#281a3bf2,#171329f5);
+  border:1px solid #a66cddaa;
+  border-radius:20px;
+  padding:21px;
+  margin:15px 0;
+  box-shadow:0 16px 45px #0006;
+}
+.panel h2{font-size:20px;margin:0 0 8px}
+.hint{color:var(--muted);font-size:13px;line-height:1.6}
+
+/* ============ FORM ============ */
+label{display:block;font-size:13px;font-weight:750;margin:15px 0 7px}
+input[type=text],input[type=url],select{
+  width:100%;padding:14px;border:1px solid #8b62b5;
+  border-radius:12px;background:#130f22;color:white;font:inherit;
+}
+.btn{
+  display:flex;justify-content:center;width:100%;padding:14px;border:0;
+  border-radius:12px;background:linear-gradient(90deg,#d9a1ff,#a8e8ff);
+  color:#191126;font-weight:900;text-decoration:none;cursor:pointer;margin-top:15px;
+}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.tag{border:1px solid #b17bdc;background:#ffffff0c;color:#f1dfff;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:800}
+.check{display:flex;align-items:flex-start;gap:10px;color:var(--muted);font-size:13px;line-height:1.5;margin-top:14px}
+.check input{margin-top:3px;accent-color:#d5a5ff}
+.status{display:none;margin-top:14px;padding:14px;border-radius:12px;background:#a8e8ff12;border:1px solid #a8e8ff66;font-size:13px;line-height:1.6;overflow-wrap:anywhere}
+.status.is-error{background:#ff8b8b1a;border-color:#ff8b8b66;color:#ffd0d0}
+.status.is-success{background:#8bffa81a;border-color:#8bffa866;color:#d8ffe0}
+.step-number{color:var(--cyan);font-size:12px;font-weight:900;letter-spacing:3px}
+
+/* ============ GROUP ============ */
+.group{border:1px solid #a778d0;border-radius:15px;padding:16px;background:linear-gradient(120deg,#4b2b6a66,#ffffff08);margin-top:12px}
+.group h3{margin:0 0 6px}
+.group p{font-size:12px;color:var(--muted)}
+.group a{display:block;text-align:center;text-decoration:none;background:var(--pink);color:#1c102b;font-weight:900;border-radius:10px;padding:12px;margin-top:12px;font-size:13px;transition:0.3s}
+.group a:hover{filter:brightness(1.1)}
+.group.locked{opacity:0.7;border-color:#555;}
+.group.locked a{background:#555;color:#aaa;cursor:not-allowed;pointer-events:none;}
+.lock-info{font-size:11px;color:#ffd0d0;margin-top:10px;text-align:center;font-weight:bold;}
+
+.small{text-align:center;font-size:11px;color:#b9a8cb;line-height:1.6;margin-top:16px}
+footer{text-align:center;color:#b9a8cb;font-size:11px;padding:22px 0}
+[hidden]{display:none!important}
+@media(max-width:560px){.panel{padding:17px}}
+</style>
+</head>
+
+<body>
+<main>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="eyebrow">NAKANO CREATOR • NKC</div>
+  <h1>SELEKSI <span>MARGA NKC</span></h1>
+  <p>Bersama Miku, kita wujudkan keluarga kreator yang lebih kuat! ♡</p>
+</header>
+
+<!-- ============ STEP 1 ============ -->
+<section class="panel" id="step1">
+  <div class="step-number">STEP 01</div>
+  <h2>📝 Data Pendaftaran</h2>
+  <p class="hint">Masukkan username TikTok terlebih dahulu.</p>
+
+  <label for="nickname">Username TikTok</label>
+  <input id="nickname" type="text" maxlength="30" placeholder="@username_tiktok" autocomplete="off">
+  <div class="status" id="profileResult"></div>
+
+  <label for="generation">Pilihan Generasi</label>
+  <select id="generation">
+    <option value="">-- Pilih Generasi --</option>
+    <option value="Gen 1">Gen 1</option>
+    <option value="Gen 2">Gen 2</option>
+  </select>
+
+  <div id="hashtagRules" hidden>
+    <label>Hashtag wajib Gen 1</label>
+    <div class="tags">
+      <span class="tag">#nakanocreator</span>
+      <span class="tag">#margankc</span>
+    </div>
+    <p class="hint">Pastikan kedua hashtag sudah ada pada video TikTok kamu.</p>
+
+    <label for="proofLink">Tautan video bukti TikTok</label>
+    <input id="proofLink" type="url" placeholder="Tempel tautan dari Salin tautan TikTok">
+    <p class="hint">Buka video TikTok → Bagikan → Salin tautan → tempel di sini.</p>
+    <div class="status" id="proofStatus"></div>
+
+    <label class="check">
+      <input type="checkbox" id="tagsOk">
+      <span>Saya memastikan video tersebut memuat kedua hashtag resmi NKC (<b>#nakanocreator</b> &amp; <b>#margankc</b>).</span>
+    </label>
+  </div>
+
+  <div id="gen2Note" class="hint" hidden>Gen 2 tidak memerlukan hashtag atau tautan bukti.</div>
+
+  <label class="check">
+    <input type="checkbox" id="rulesOk">
+    <span>Saya bersedia mengikuti peraturan dan menjaga nama baik NKC.</span>
+  </label>
+
+  <button class="btn" id="nextBtn" type="button">LANJUT KE STEP 2 ✦</button>
+  <div class="status" id="stepResult"></div>
+</section>
+
+<!-- ============ STEP 2 ============ -->
+<section class="panel" id="step2" hidden>
+  <div class="step-number">STEP 02</div>
+  <h2>💜 Bergabung ke Grup NKC</h2>
+  <p class="hint" style="margin-bottom:20px;">Berikut link grup sesuai generasi pilihanmu.</p>
+
+  <!-- Grup Gen 1 -->
+  <div id="gen1Group" class="group" hidden>
+    <h3>👑 GRUP GEN 1</h3>
+    <p>Grup anggota NKC generasi pertama.</p>
+    <a href="https://chat.whatsapp.com/E2qwdPXxEYFKqzsc3vWTOB" target="_blank" rel="noopener">BUKA GRUP GEN 1</a>
+  </div>
+
+  <!-- Grup Gen 2 (Dengan Sistem Kunci) -->
+  <div id="gen2Group" class="group" hidden>
+    <h3>👑 GRUP GEN 2 <span id="lockIcon">🔒 TERKUNCI</span></h3>
+    <p>Grup anggota NKC generasi kedua.</p>
+    <a href="https://chat.whatsapp.com/DoNiRGUInBhBjbHvNgU3uF?s=cl&p=a&iam=2" id="linkGen2" target="_blank" rel="noopener">BUKA GRUP GEN 2</a>
+    <div class="lock-info" id="lockTimer">Gen 2 terkunci. Kamu baru bisa membuka grup Gen 2 setelah 3 hari sejak terdaftar di Gen 1. Sisa waktu: --</div>
+  </div>
+
+  <p class="small">Pastikan kamu bergabung ke grup yang sesuai dengan pilihan generasimu.</p>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  © 2026 SELEKSI NKC • NAKANO CREATOR<br>
+  <i>Miku akan selalu mendukung kalian ♡</i>
+</footer>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+
+// --- LOGIKA FORM ---
+const nickname = $("nickname");
+const generation = $("generation");
+const proofLink = $("proofLink");
+const tagsOk = $("tagsOk");
+const rulesOk = $("rulesOk");
+const hashtagRules = $("hashtagRules");
+const gen2Note = $("gen2Note");
+const profileResult = $("profileResult");
+const proofStatus = $("proofStatus");
+const stepResult = $("stepResult");
+const step1 = $("step1");
+const step2 = $("step2");
+
+// Validasi Link TikTok
+function validTikTokLink(url) {
+  if (!url) return false;
+  let val = url.trim().replace(/\s+/g, "");
+  if (!/^https?:\/\//i.test(val)) val = "https://" + val;
+  try {
+    let u = new URL(val);
+    return u.hostname.toLowerCase().includes("tiktok.com");
+  } catch { return false; }
+}
+
+// Preview Username
+nickname.addEventListener("input", () => {
+  let user = nickname.value.trim().replace(/^@+/, "");
+  if (!user) {
+    profileResult.style.display = "none";
+    return;
+  }
+  profileResult.style.display = "block";
+  profileResult.className = "status is-success";
+  profileResult.innerHTML = `Profil TikTok: <a href="https://www.tiktok.com/@${user}" target="_blank" style="color:var(--cyan);">@${user}</a>`;
+});
+
+// Ganti Generasi
+generation.addEventListener("change", () => {
+  if (generation.value === "Gen 1") {
+    hashtagRules.hidden = false;
+    gen2Note.hidden = true;
+  } else if (generation.value === "Gen 2") {
+    hashtagRules.hidden = true;
+    gen2Note.hidden = false;
+  } else {
+    hashtagRules.hidden = true;
+    gen2Note.hidden = true;
+  }
+});
+
+// Tombol Lanjut
+$("nextBtn").addEventListener("click", () => {
+  stepResult.style.display = "none";
+  let user = nickname.value.trim().replace(/^@+/, "");
+  let gen = generation.value;
+
+  if (!user) { stepResult.style.display = "block"; stepResult.className = "status is-error"; stepResult.textContent = "Isi Username TikTok!"; return; }
+  if (!gen) { stepResult.style.display = "block"; stepResult.className = "status is-error"; stepResult.textContent = "Pilih Generasi!"; return; }
+  
+  if (gen === "Gen 1") {
+    if (!validTikTokLink(proofLink.value)) { stepResult.style.display = "block"; stepResult.className = "status is-error"; stepResult.textContent = "Masukkan Link TikTok yang valid!"; return; }
+    if (!tagsOk.checked) { stepResult.style.display = "block"; stepResult.className = "status is-error"; stepResult.textContent = "Centang bukti hashtag!"; return; }
+  }
+  if (!rulesOk.checked) { stepResult.style.display = "block"; stepResult.className = "status is-error"; stepResult.textContent = "Setujui aturan NKC!"; return; }
+
+  // --- JIKA LOLOS SEMUA VALIDASI ---
+  step1.hidden = true;
+  step2.hidden = false;
+
+  if (gen === "Gen 1") {
+    $("gen1Group").hidden = false;
+    $("gen2Group").hidden = true;
+
+    // Catat waktu daftar di browser (Local Storage)
+    // Sistem cuma nyatet kalau belum pernah daftar
+    if (!localStorage.getItem("nkc_gen1_time")) {
+      localStorage.setItem("nkc_gen1_time", Date.now());
+    }
+  } else {
+    $("gen1Group").hidden = true;
+    $("gen2Group").hidden = false;
+    
+    // Jika dia pilih Gen 2 langsung, buka kuncinya (karena gak lewat Gen 1)
+    $("lockTimer").style.display = "none";
+    $("lockIcon").textContent = "✅ TERBUKA";
+    $("gen2Group").classList.remove("locked");
+  }
+  
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Jalankan pengecekan kunci
+  cekKunciGen2();
+});
+
+// --- LOGIKA KUNCI 3 HARI ---
+const KUNCI_WAKTU = 3 * 24 * 60 * 60 * 1000; // 3 hari
+let timerInterval;
+
+function cekKunciGen2() {
+  if (generation.value === "Gen 2") return;
+
+  const waktuDaftar = localStorage.getItem("nkc_gen1_time");
+  if (!waktuDaftar) return;
+
+  const waktuSekarang = Date.now();
+  const sisaWaktu = KUNCI_WAKTU - (waktuSekarang - parseInt(waktuDaftar));
+
+  const boxGen2 = $("gen2Group");
+  const lockTimer = $("lockTimer");
+  const lockIcon = $("lockIcon");
+
+  if (sisaWaktu > 0) {
+    // Terkunci
+    boxGen2.classList.add("locked");
+    lockIcon.textContent = "🔒 TERKUNCI";
+    lockTimer.style.display = "block";
+    
+    if (timerInterval) clearInterval(timerInterval);
+
+    timerInterval = setInterval(() => {
+      const now = Date.now();
+      const sisa = KUNCI_WAKTU - (now - parseInt(waktuDaftar));
+
+      if (sisa <= 0) {
+        // Waktu Habis
+        clearInterval(timerInterval);
+        boxGen2.classList.remove("locked");
+        lockIcon.textContent = "✅ TERBUKA";
+        lockTimer.style.display = "none";
+      } else {
+        // Tampilkan Hitung Mundur
+        const d = Math.floor(sisa / (1000 * 60 * 60 * 24));
+        const h = Math.floor((sisa / (1000 * 60 * 60)) % 24);
+        const m = Math.floor((sisa / 1000 / 60) % 60);
+        const s = Math.floor((sisa / 1000) % 60);
+        lockTimer.innerHTML = `Gen 2 terkunci. Sisa waktu: <b>${d} hari ${h} jam ${m} menit ${s} detik</b>`;
+      }
+    }, 1000);
+
+  } else {
+    // Sudah Terbuka
+    boxGen2.classList.remove("locked");
+    lockIcon.textContent = "✅ TERBUKA";
+    lockTimer.style.display = "none";
+  }
+}
+
+// Cek kunci saat halaman di-refresh (jika sebelumnya sudah daftar)
+window.addEventListener("DOMContentLoaded", () => {
+  if (localStorage.getItem("nkc_gen1_time")) {
+    // Sembunyikan form, tampilkan link grup langsung (biar user gak bingung)
+    step1.hidden = true;
+    step2.hidden = false;
+    $("gen1Group").hidden = false;
+    $("gen2Group").hidden = false;
+    cekKunciGen2();
+  }
+});
+</script>
+
+</body>
+                                                                                            </html>
