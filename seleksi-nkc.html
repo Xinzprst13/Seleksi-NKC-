@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#180d2b">
+<title>Seleksi Marga NKC</title>
+
+<style>
+:root{
+  --pink:#e8b7ff;
+  --cyan:#a8e8ff;
+  --text:#fbf6ff;
+  --muted:#cbbbdc;
+}
+
+*{box-sizing:border-box}
+
+/* =========================================
+   BACKGROUND ANIME MESH GRADIENT (CSS MURNI)
+   ========================================= */
+body{
+  margin:0;
+  min-height:100vh;
+  color:var(--text);
+  font-family:Inter,system-ui,Arial,sans-serif;
+  background-color: #0d0618; /* Warna dasar gelap */
+  
+  /* Pola gradasi warna-warni ala anime aesthetic */
+  background-image: 
+    radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
+    radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), 
+    radial-gradient(at 100% 0%, hsla(339,49%,30%,1) 0, transparent 50%);
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+main{width:min(850px,100%);margin:auto;padding:20px 14px 40px}
+
+.hero{
+  text-align:center;
+  padding:30px 16px;
+  border:1px solid #b77aff99;
+  border-radius:22px;
+  background:#211536d9;
+  box-shadow:0 15px 45px #0008;
+  margin-bottom:18px;
+  backdrop-filter: blur(10px); /* Efek kaca */
+}
+.eyebrow{font-size:11px;letter-spacing:4px;color:var(--cyan);font-weight:900}
+.hero h1{font-size:clamp(30px,7vw,48px);margin:12px 0}
+.hero h1 span{color:var(--pink)}
+.hero p{color:var(--muted);font-size:13px}
+
+.panel{
+  background:linear-gradient(145deg,#281a3bf2,#171329f5);
+  border:1px solid #a66cddaa;
+  border-radius:20px;
+  padding:21px;
+  margin:15px 0;
+  box-shadow:0 16px 45px #0006;
+  backdrop-filter: blur(10px);
+}
+.panel h2{font-size:20px;margin:0 0 8px}
+.hint{color:var(--muted);font-size:13px;line-height:1.6}
+
+label{display:block;font-size:13px;font-weight:750;margin:15px 0 7px}
+input[type=text],input[type=url],select{
+  width:100%;padding:14px;border:1px solid #8b62b5;
+  border-radius:12px;background:#130f22;color:white;font:inherit;
+  outline: none; transition: 0.3s;
+}
+input:focus, select:focus { border-color: var(--cyan); }
+
+.btn{
+  display:flex;justify-content:center;width:100%;padding:14px;border:0;
+  border-radius:12px;background:linear-gradient(90deg,#d9a1ff,#a8e8ff);
+  color:#191126;font-weight:900;text-decoration:none;cursor:pointer;margin-top:15px;
+  transition: 0.3s;
+}
+.btn:hover { filter: brightness(1.1); transform: translateY(-2px); }
+
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.tag{
+  border:1px solid #b17bdc;background:#ffffff0c;color:#f1dfff;
+  border-radius:999px;padding:8px 12px;font-size:12px;font-weight:800;
+}
+
+.check{display:flex;align-items:flex-start;gap:10px;color:var(--muted);font-size:13px;line-height:1.5;margin-top:14px}
+.check input{margin-top:3px;accent-color:#d5a5ff; width: 18px; height: 18px;}
+
+.status{
+  display:none;margin-top:14px;padding:14px;border-radius:12px;
+  background:#a8e8ff12;border:1px solid #a8e8ff66;font-size:13px;line-height:1.6;overflow-wrap:anywhere;
+}
+.status.is-error{background:#ff8b8b1a;border-color:#ff8b8b66;color:#ffd0d0}
+.status.is-success{background:#8bffa81a;border-color:#8bffa866;color:#d8ffe0}
+.status a{color:var(--cyan)}
+
+.step-number{color:var(--cyan);font-size:12px;font-weight:900;letter-spacing:3px}
+.group{
+  border:1px solid #a778d0;border-radius:15px;padding:16px;
+  background:linear-gradient(120deg,#4b2b6a66,#ffffff08);margin-top:12px;
+}
+.group h3{margin:0 0 6px}
+.group p{font-size:12px;color:var(--muted)}
+.group a{
+  display:block;text-align:center;text-decoration:none;background:var(--pink);
+  color:#1c102b;font-weight:900;border-radius:10px;padding:12px;margin-top:12px;font-size:13px;
+}
+
+.small{text-align:center;font-size:11px;color:#b9a8cb;line-height:1.6;margin-top:16px}
+footer{text-align:center;color:#b9a8cb;font-size:11px;padding:22px 0}
+[hidden]{display:none!important}
+@media(max-width:560px){.panel{padding:17px}}
+</style>
+</head>
+
+<body>
+<main>
+
+<header class="hero">
+  <div class="eyebrow">NAKANO CREATOR • NKC</div>
+  <h1>SELEKSI <span>MARGA NKC</span></h1>
+  <p>Bersama Miku, kita wujudkan keluarga kreator yang lebih kuat! ♡</p>
+</header>
+
+<section class="panel">
+  <div class="step-number">STEP 01</div>
+  <h2>📝 Data Pendaftaran</h2>
+  <p class="hint">Masukkan username TikTok terlebih dahulu.</p>
+
+  <label for="nickname">Username TikTok</label>
+  <input id="nickname" type="text" maxlength="30" placeholder="@username_tiktok" autocomplete="off">
+  <div class="status" id="profileResult"></div>
+
+  <label for="generation">Pilihan Generasi</label>
+  <select id="generation">
+    <option value="">-- Pilih Generasi --</option>
+    <option value="Gen 1">Gen 1</option>
+    <option value="Gen 2">Gen 2</option>
+  </select>
+
+  <div id="hashtagRules" hidden>
+    <label>Hashtag wajib Gen 1</label>
+    <div class="tags">
+      <span class="tag">#nakanocreator</span>
+      <span class="tag">#margankc</span>
+    </div>
+    <p class="hint">Pastikan kedua hashtag sudah ada pada video TikTok kamu.</p>
+
+    <label for="proofLink">Tautan video bukti TikTok</label>
+    <input id="proofLink" type="url" placeholder="Tempel tautan dari Salin tautan TikTok">
+    <p class="hint">Buka video TikTok → Bagikan → Salin tautan → tempel di sini.</p>
+    <div class="status" id="proofStatus"></div>
+
+    <label class="check">
+      <input type="checkbox" id="tagsOk">
+      <span>Saya memastikan video tersebut memuat kedua hashtag resmi NKC (<b>#nakanocreator</b> &amp; <b>#margankc</b>).</span>
+    </label>
+  </div>
+
+  <div id="gen2Note" class="hint" hidden>Gen 2 tidak memerlukan hashtag atau tautan bukti.</div>
+
+  <label class="check">
+    <input type="checkbox" id="rulesOk">
+    <span>Saya bersedia mengikuti peraturan dan menjaga nama baik NKC.</span>
+  </label>
+
+  <button class="btn" id="nextBtn" type="button">LANJUT KE STEP 2 ✦</button>
+  <div class="status" id="stepResult"></div>
+</section>
+
+<section class="panel" id="step2" hidden>
+  <div class="step-number">STEP 02</div>
+  <h2>💜 Bergabung ke Grup NKC</h2>
+  <p class="hint">Berikut link grup sesuai generasi pilihanmu.</p>
+
+  <div id="gen1Group" class="group" hidden>
+    <h3>👑 GRUP GEN 1</h3>
+    <p>Grup anggota NKC generasi pertama.</p>
+    <a href="https://chat.whatsapp.com/E2qwdPXxEYFKqzsc3vWTOB" target="_blank" rel="noopener">BUKA GRUP GEN 1</a>
+  </div>
+
+  <div id="gen2Group" class="group" hidden>
+    <h3>👑 GRUP GEN 2</h3>
+    <p>Grup anggota NKC generasi kedua.</p>
+    <a href="https://chat.whatsapp.com/DoNiRGUInBhBjbHvNgU3uF?s=cl&p=a&iam=2" target="_blank" rel="noopener">BUKA GRUP GEN 2</a>
+  </div>
+
+  <p class="small">Pastikan kamu bergabung ke grup yang sesuai dengan pilihan generasimu.</p>
+</section>
+
+<footer>
+  © 2026 SELEKSI NKC • NAKANO CREATOR<br>
+  <i>Miku akan selalu mendukung kalian ♡</i>
+</footer>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+const nickname = $("nickname");
+const generation = $("generation");
+const proofLink = $("proofLink");
+const tagsOk = $("tagsOk");
+const rulesOk = $("rulesOk");
+const hashtagRules = $("hashtagRules");
+const gen2Note = $("gen2Note");
+const profileResult = $("profileResult");
+const proofStatus = $("proofStatus");
+const stepResult = $("stepResult");
+const step2 = $("step2");
+
+const REQUIRED_TAGS = ["#nakanocreator", "#margankc"];
+
+function normalizeLink(raw){
+  return raw.replace(/[\u200B-\u200D\uFEFF]/g, "").replace(/\s+/g, "").trim();
+}
+function cleanUsername(v){
+  return v.trim().replace(/^@+/, "").replace(/\s+/g, "");
+}
+function parseTikTokLink(raw){
+  let value = normalizeLink(raw);
+  if(!value) return {ok:false, reason:"kosong"};
+  if(!/^https?:\/\//i.test(value)) value = "https://" + value;
+  let url;
+  try{ url = new URL(value); }catch{ return {ok:false, reason:"format"}; }
+  if(url.protocol !== "https:" && url.protocol !== "http:") return {ok:false, reason:"protokol"};
+  const host = url.hostname.toLowerCase();
+  const allowed = ["tiktok.com","www.tiktok.com","m.tiktok.com","vm.tiktok.com","vt.tiktok.com","vt.tiktokv.com"];
+  const isTikTok = allowed.includes(host) || host.endsWith(".tiktok.com");
+  if(!isTikTok) return {ok:false, reason:"domain"};
+  return {ok:true, url: value};
+}
+function lockStep2(){
+  step2.hidden = true;
+  $("gen1Group").hidden = true;
+  $("gen2Group").hidden = true;
+}
+function showStatus(el, msg, type = ""){
+  el.classList.remove("is-error", "is-success");
+  if(type) el.classList.add("is-" + type);
+  el.style.display = "block";
+  el.textContent = msg;
+  el.scrollIntoView({behavior:"smooth", block:"center"});
+}
+function hideStatus(el){
+  el.style.display = "none";
+  el.classList.remove("is-error", "is-success");
+  el.textContent = "";
+}
+
+nickname.addEventListener("input", () => {
+  lockStep2(); hideStatus(stepResult);
+  const username = cleanUsername(nickname.value);
+  if(!username){ hideStatus(profileResult); return; }
+  const url = "https://www.tiktok.com/@" + encodeURIComponent(username);
+  profileResult.style.display = "block";
+  profileResult.textContent = "Tautan profil: ";
+  const link = document.createElement("a");
+  link.href = url; link.target = "_blank"; link.rel = "noopener"; link.textContent = url;
+  profileResult.appendChild(link);
+});
+
+generation.addEventListener("change", () => {
+  hashtagRules.hidden = generation.value !== "Gen 1";
+  gen2Note.hidden = generation.value !== "Gen 2";
+  proofLink.value = ""; tagsOk.checked = false;
+  hideStatus(proofStatus); hideStatus(stepResult); lockStep2();
+});
+
+proofLink.addEventListener("input", () => {
+  lockStep2(); hideStatus(stepResult);
+  const raw = proofLink.value;
+  if(!raw.trim()){ hideStatus(proofStatus); return; }
+  const result = parseTikTokLink(raw);
+  if(!result.ok){
+    const map = { kosong:"Tautan masih kosong.", format:"Format tautan tidak valid.", protokol:"Tautan harus diawali https://", domain:"Bukan tautan TikTok." };
+    showStatus(proofStatus, map[result.reason] || "Tautan tidak valid.", "error");
+  }else{
+    showStatus(proofStatus, "✅ Link TikTok valid.", "success");
+  }
+});
+
+tagsOk.addEventListener("change", lockStep2);
+rulesOk.addEventListener("change", lockStep2);
+
+$("nextBtn").addEventListener("click", () => {
+  lockStep2(); hideStatus(stepResult);
+  const name = cleanUsername(nickname.value);
+  const gen = generation.value;
+
+  if(!name){ showStatus(stepResult, "Isi username TikTok terlebih dahulu.", "error"); nickname.focus(); return; }
+  if(!/^[a-zA-Z0-9._]{2,24}$/.test(name)){ showStatus(stepResult, "Format username tidak valid.", "error"); nickname.focus(); return; }
+  if(!gen){ showStatus(stepResult, "Pilih Gen 1 atau Gen 2 terlebih dahulu.", "error"); generation.focus(); return; }
+
+  if(gen === "Gen 1"){
+    const parsed = parseTikTokLink(proofLink.value);
+    if(!parsed.ok){ showStatus(stepResult, "Masukkan tautan video TikTok yang valid.", "error"); proofLink.focus(); return; }
+    if(!tagsOk.checked){ showStatus(stepResult, "Konfirmasi bahwa video sudah memuat hashtag " + REQUIRED_TAGS.join(" & "), "error"); return; }
+  }
+
+  if(!rulesOk.checked){ showStatus(stepResult, "Kamu harus menyetujui peraturan NKC.", "error"); return; }
+
+  $("gen1Group").hidden = gen !== "Gen 1";
+  $("gen2Group").hidden = gen !== "Gen 2";
+  step2.hidden = false;
+  showStatus(stepResult, "Pendaftaran berhasil! Silakan lanjut ke grup NKC.", "success");
+  step2.scrollIntoView({behavior:"smooth"});
+
+  // Efek Suara "Ting" saat berhasil (Tanpa file MP3)
+  try {
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = audioCtx.createOscillator();
+    const gainNode = audioCtx.createGain();
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(600, audioCtx.currentTime);
+    gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.0);
+    oscillator.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+    oscillator.start();
+    oscillator.stop(audioCtx.currentTime + 1.0);
+  } catch(e) {}
+});
+</script>
+</body>
+  </html>
